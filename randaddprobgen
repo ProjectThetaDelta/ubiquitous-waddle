@@ -1,0 +1,45 @@
+import random, sys
+
+print "Random addition question generator."
+
+score = 0
+level = 1
+counter = 0
+
+def question(score,level,counter):
+    if level == 1:
+        none = random.randint(1,10)
+        ntwo = random.randint(1,10)
+    else:
+        none = random.randint(10 ** (level / 2),100 ** (level / 2))
+        ntwo = random.randint(10 ** (level / 2),100 ** (level / 2))
+    if counter == 0:
+        print "You are on level " + str(level)
+    answer = raw_input("What is " + str(none) + " + " + str(ntwo) + "?")
+    if int(answer) == int(none) + int(ntwo):
+            print "Correct!"
+            score = score + 1
+            print "Your current score is " + str(score)
+            counter = counter + 1
+    else:
+            print "Incorrect!"
+            counter = counter + 1
+    if score % 5 == 0 and score != 0:
+        yesno(score,level,counter)
+    else:
+        question(score,level,counter)
+
+def yesno(score,level,counter):
+    yn = raw_input("Continue? Say 'y' or 'n'.")
+    if yn == "y":
+        level = level + 1
+        counter = 0
+        question(score,level,counter)
+    elif yn == "n":
+        print "Exiting."
+        sys.exit()
+    else:
+        print "Not an answer!"
+        yesno(score,level,counter)
+
+question(score,level,counter)
